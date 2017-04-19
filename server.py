@@ -15,7 +15,7 @@ hostip = str()
 def sendto(*args):
     message = messageE.get()
     port = int(portE.get())
-    print("sending " + message + " to " + hostip)
+    print("sending " + message + " to " + hostip + " on port " + str(port))
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((hostip, port))
     s.send(message.encode())
