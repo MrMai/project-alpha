@@ -11,11 +11,12 @@ message = StringVar()
 host = StringVar()
 port = 4444
 hostip = str()
+selectedhost = 0
 
 def sendto(*args):
     message = messageE.get()
     port = int(portE.get())
-    print("sending " + message + " to " + hostip + " on port " + str(port))
+    print("sending \"" + message + "\" to \"" + hosts[selectedhost] + "\" on port \"" + str(port) + "\"")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((hostip, port))
     s.send(message.encode())
@@ -44,7 +45,8 @@ def reloadhosts(*args):
     print('---------------------------------')
 
 def loadhost(*args):
-    print("changed host to " + host.get())
+    global hostip
+    print("changed host to \"" + host.get() + '\"')
     for i in range(0,len(hosts)):
         if (host.get() == hostnames[i]):
             hostip = hosts[i]
