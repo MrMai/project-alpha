@@ -16,7 +16,7 @@ selectedhost = 0
 def sendto(*args):
     message = messageE.get()
     port = int(portE.get())
-    print("sending \"" + message + "\" to \"" + hosts[selectedhost] + "\" on port \"" + str(port) + "\"")
+    print("sending \"" + message + "\" to \"" + hostip + "\" on port \"" + str(port) + "\"")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((hostip, port))
     s.send(message.encode())
@@ -52,6 +52,9 @@ def loadhost(*args):
             hostip = hosts[i]
     print("ip is " + hostip)
 
+def clearme(*args):
+    messageE.delete(0, END)
+
 reloadhosts()
 
 sl = Label(window, text="Message")
@@ -70,11 +73,14 @@ portE = Entry(window, width=8)
 portE.grid(row=1, column=1, sticky=E)
 
 hostselect = OptionMenu(window, host, *hostnames, command=loadhost)
-hostselect.config(width=12)
+hostselect.config(width=20)
 hostselect.grid(row=1, column=1, sticky=W)
 
 sendbutton = Button(window, text="Send", command=sendto)
 sendbutton.grid(row=2, column=1, sticky=E)
+
+clearbutton = Button(window, text="Clr", command=clearme)
+clearbutton.grid(row=0, column=2)
 
 window.bind('<Return>', sendto)
 
